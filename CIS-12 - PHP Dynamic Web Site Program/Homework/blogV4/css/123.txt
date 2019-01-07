@@ -1,0 +1,54 @@
+<?php
+if( isset($_GET['summonerName']) &&
+    isset($_GET['gameType']) &&
+    isset($_GET['userComments'])) {
+    
+    $summonerName   = $_GET['summonerName'];
+    $gameType       = $_GET['gameType'];
+    $userComments   = $_GET['userComments'];
+    
+    print("this is my username: " . $summonerName . "<br/>");
+    print("this is my body: " . $gameType . "<br/>");   
+    print("this is my username: " . $userComments . "<br/>");
+    
+    saveUserPosts($summonerName, $gameType, $userComments);
+}
+
+function saveUserPosts($summonerName, $gameType, $userComments) {
+    mysql_connect(DB_HOSTNAME, DB_USERNAME, DB_PASSWORD);
+    mysql_select_db(DB_NAME);
+    $query = "INSERT INTO userPosts (summonerName, gameType, userComments) VALUES ('$summonerName', '$gameType', '$userComments')";
+    
+    $result = mysql_query($query);
+    if($result == false) {
+        print("query failed: " . $query);
+        print("error: " . mysql_error());
+    }
+}
+?>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Make a Post</title>
+    </head>
+    <body>             
+    <div id="box_message">
+    <h1>Make a Group!</h1>     
+        <form action="" method="post" id="post_message" accept-charset="utf-8" style="margin:0 auto;">
+            <input id="input_title" type="text" name="summonerName" value="Summoner Name" size="128" />
+            <br>
+            
+            <input id="loc" type="text" name="loc" value="Loc" size="128" />
+            <br>
+            
+            <input id="gameType" type="text" name="gameType" value="Game Type" size="128" />
+            <br>   
+
+            <textarea name="userComments" rows="8" cols="88">Message</textarea>
+            <br>
+            
+            <button type="submit" value="Post">Make Post</button>
+        </form>
+    </body>
+</html>

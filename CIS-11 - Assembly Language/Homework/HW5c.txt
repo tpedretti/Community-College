@@ -1,0 +1,60 @@
+; ============================
+; Attached:  	 HW 5c
+; ============================
+Program: 	  HW_5c
+Class:  	  CIS-11
+Programmer:	  Taylor Pedretti
+
+; ============================
+TITLE MASM Template						(main.asm)
+
+; Description:
+; 
+; Revision date:
+
+INCLUDE Irvine32.inc
+
+ARRAY_SIZE = 20
+
+.data
+numbers DWORD ARRAY_SIZE DUP(?)
+sum DWORD ?
+msg BYTE "How many intergers will be addded: ",0
+signedMsg BYTE "Enter a signed interger: ",0
+sumMsg BYTE "The sum of integers is: ",0
+
+.code
+main PROC
+	call Clrscr  
+
+	mov	 EDX, OFFSET msg
+	call WriteString
+
+	call ReadDec
+
+	mov ECX, EAX
+	mov ESI, OFFSET numbers
+	
+	mov EAX, sum
+	mov sum, 0
+	
+L1:
+	mov EDX, OFFSET signedMsg
+	call WriteString
+	call ReadInt
+	add sum, EAX
+	inc ESI
+
+	loop L1
+
+	mov	 EDX, OFFSET sumMsg
+	call WriteString
+
+	mov EAX, sum
+	call WriteInt
+
+	call DumpRegs
+	exit
+main ENDP
+
+END main

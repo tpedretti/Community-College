@@ -1,0 +1,177 @@
+; ============================
+; Attached:  	 HW 5ab
+; ============================
+Program: 	  HW_5a
+Class:  	  CIS-11
+Programmer:	  Taylor Pedretti
+
+; ============================
+TITLE MASM Template						(main.asm)
+
+; Description:
+; 
+; Revision date:
+
+INCLUDE Irvine32.inc
+.data
+msgLastName			BYTE "Enter your last name: ",0
+msgFirstName		BYTE "Enter your first name: ",0
+msgMiddileInitial	BYTE "Enter your middile initial: ",0
+msgAge				BYTE "Enter your age: ",0
+msgSpace			BYTE " ",0
+msgNewLine			BYTE 0dh,0ah,0
+msgIs				BYTE " is ",0
+msgYearsold			BYTE " years old.",0
+
+lastName			BYTE 80 DUP (0)
+firstName			BYTE 80 DUP (0)
+middleInitial		BYTE ?
+age					DWORD ?
+
+
+.code
+main PROC
+	call Clrscr  
+
+	mov EDX, OFFSET msgLastName
+	call WriteString
+
+	mov EDX, OFFSET lastName
+	mov ECX, SIZEOF lastName - 1
+	call ReadString
+
+	mov EDX, OFFSET msgFirstName
+	call WriteString
+
+	mov EDX, OFFSET firstName
+	mov ECX, SIZEOF firstName - 1
+	call ReadString
+
+	mov EDX, OFFSET msgMiddileInitial
+	call WriteString
+
+	call ReadChar
+	mov middleInitial, AL
+
+	mov EDX, OFFSET middleInitial
+	call WriteChar
+
+	mov EDX, OFFSET msgNewLine
+	call WriteString
+
+	mov EDX, OFFSET msgAge
+	call WriteString
+
+	call ReadInt
+	mov age, EAX
+
+
+
+	mov EDX, OFFSET firstName
+	call WriteString
+
+	mov EDX, OFFSET msgSpace
+	call WriteString
+
+	mov EDX, OFFSET middleInitial
+	call WriteChar
+
+	mov EDX, OFFSET msgSpace
+	call WriteString
+
+	mov EDX, OFFSET lastName
+	call WriteString
+
+	mov EDX, OFFSET msgIs
+	call WriteString
+
+	call WriteDec
+
+	mov EDX, OFFSET msgYearsold
+	call WriteString
+
+	call DumpRegs
+	exit
+main ENDP
+
+END main
+
+; ============================
+; Attached:  	 HW 5ab
+; ============================
+Program: 	  HW_5b
+Class:  	  CIS-11
+Programmer:	  Taylor Pedretti
+
+; ============================
+TITLE MASM Template						(main.asm)
+
+; Description:
+; 
+; Revision date:
+
+INCLUDE Irvine32.inc
+.data
+msg					BYTE "Enter 4 integer values: ",0dh,0ah,0
+msgReverse			BYTE "Here are the numbers in reverse order",0dh,0ah,0
+msgSumTotal			BYTE "The sum equals: ",0
+msgNewLine			BYTE 0dh,0ah,0
+
+nums				WORD 4 DUP(0)
+sum					WORD 0
+
+.code
+main PROC
+	call Clrscr  
+	
+	mov EDX, OFFSET msg
+	call WriteString
+
+	mov CX, 8
+	mov SI, 0
+
+	L1:
+	call ReadInt
+	
+	push AX
+	mov nums, AX		
+	mov AX, nums[SI]
+		
+	inc SI
+	loop L1
+
+	mov CX, 8
+	mov SI, 0
+
+	mov EDX, OFFSET msgReverse
+	call WriteString
+
+	mov EDX, 0
+	mov DX, sum
+	mov sum, 0
+
+	L2:
+	pop AX
+	mov nums[SI], AX
+	call WriteDec
+	call Crlf
+	add DX, nums[SI]
+	inc SI
+	loop L2
+
+	mov AX, DX
+
+	;//Fucking VooDoo magic right here...
+	;//http://stackoverflow.com/questions/2036674/assembly-fast-division-by-2/2036680#2036680
+	sar eax, 1
+	
+	mov EDX, OFFSET msgSumTotal
+	call WriteString
+
+	call WriteDec
+
+	call DumpRegs
+	exit
+main ENDP
+
+END main

@@ -1,0 +1,73 @@
+; ============================
+; Attached:  	 HW 6a
+; ============================
+Program: 	  HW_6a
+Class:  	  CIS-11
+Programmer:	  Taylor Pedretti
+
+; ============================
+TITLE MASM Template						(main.asm)
+
+; Description:
+; 
+; Revision date:
+
+INCLUDE Irvine32.inc
+.data
+
+enterNum BYTE "Enter an integer (0 to quit): ",0
+showString BYTE "Here are the numbers and their squares",0
+space BYTE " ",0
+
+.code
+main PROC
+	call Clrscr
+	mov	 EDX, OFFSET enterNum
+	call WriteString
+
+.WHILE (EAX > 0)
+	call ReadDec
+	.IF (EAX == 0)
+		jmp show
+	.ELSE
+		mov ECX, EAX
+		mul EAX
+		push EAX
+
+		mov EAX, ECX
+		push EAX
+		inc ESI
+	.ENDIF
+.ENDW
+
+L1:
+	pop EAX
+	call WriteDec
+
+	mov EDX, OFFSET space
+	call WriteString
+
+	pop EAX
+	call WriteDec
+
+	dec ESI
+	call Crlf
+
+	.IF(ESI == 0)
+		jmp done
+	.ENDIF
+loop L1
+
+show:
+	mov EDX, OFFSET showString
+	call WriteString
+	call Crlf
+	jmp L1
+
+done:
+	call DumpRegs
+
+	exit
+main ENDP
+
+END main

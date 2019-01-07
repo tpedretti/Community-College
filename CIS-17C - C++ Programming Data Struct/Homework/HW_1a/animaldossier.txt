@@ -1,0 +1,28 @@
+10
+Bear
+Qty:	3
+Consumption:	100
+Lion
+Qty:	6
+Consumption:	90
+Zebra
+Qty:	10
+Consumption:	150
+Penguin
+Qty:	6
+Consumption:	12
+Python
+Qty:	3
+Consumption:	6
+Elephant
+Qty:	3
+Consumption:	1600
+Eagle
+Qty:	2
+Consumption:	2
+Stingray
+Qty:	20
+Consumption:	10
+Seaturtle
+Qty:	3
+Consumption:	10

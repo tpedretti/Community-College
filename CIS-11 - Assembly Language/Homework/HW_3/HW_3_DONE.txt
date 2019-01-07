@@ -1,0 +1,118 @@
+; ============================
+; Attached:  	 HW 3abc
+; ============================
+Program: 	  HW_3a
+Class:  	  CIS-11
+Programmer:	  Taylor Pedretti
+
+; ============================
+
+TITLE HOMEWORK
+
+INCLUDE Irvine32.inc
+
+.data
+sunday DWORD 0
+monday DWORD 1
+tuesday DWORD 2
+wednesday DWORD 3
+thursday DWORD 4
+friday DWORD 5
+saturday DWORD 6
+days BYTE 0,1,2,3,4,5,6
+
+.code
+main PROC
+
+	mov EAX, thursday
+	mov EBX, wednesday
+	mov ECX, tuesday
+	mov EDX, monday
+	
+	call	DumpRegs
+
+	exit
+main ENDP
+END main
+
+
+;  EAX=00000004  EBX=00000003  ECX=00000002  EDX=00000001
+;  ESI=00000000  EDI=00000000  EBP=0018FF94  ESP=0018FF8C
+;  EIP=0040102C  EFL=00000246  CF=0  SF=0  ZF=1  OF=0  AF=0  PF=1
+;
+;Press any key to continue . . .
+
+; ============================
+; Attached:  	 HW 3abc
+; ============================
+Program: 	  HW_3b
+Class:  	  CIS-11
+Programmer:	  Taylor Pedretti
+
+; ============================
+
+TITLE HOMEWORK
+
+INCLUDE Irvine32.inc
+
+.data
+artist1 BYTE "Salvador Dali",0dh,0dh,0
+artist2 BYTE "Jackson Pollock",0dh,0dh,0
+artist3 BYTE "Renoir",0dh,0dh,0
+
+.code
+main PROC
+
+	mov EDX, offset artist1
+	call WriteString
+
+	call DumpRegs
+
+	exit
+main ENDP
+END main
+
+;Salvador Dali
+;  EAX=76623358  EBX=7EFDE000  ECX=00000000  EDX=00405880
+;  ESI=00000000  EDI=00000000  EBP=0018FF94  ESP=0018FF8C
+;  EIP=0040101F  EFL=00000202  CF=0  SF=0  ZF=0  OF=0  AF=0  PF=0
+
+;Press any key to continue . . .
+
+; ============================
+; Attached:  	 HW 3abc
+; ============================
+Program: 	  HW_3c
+Class:  	  CIS-11
+Programmer:	  Taylor Pedretti
+
+; ============================
+
+TITLE HOMEWORK
+
+INCLUDE Irvine32.inc
+
+.data
+side DWORD 5
+
+.code
+main PROC
+
+	mov ECX, 0
+	add ECX, side
+	add ECX, side
+	add ECX, side
+	add ECX, side
+
+	call DumpRegs
+
+	exit
+main ENDP
+END main
+
+
+; EAX=76623358  EBX=7EFDE000  ECX=00000014  EDX=00401005
+; ESI=00000000  EDI=00000000  EBP=0018FF94  ESP=0018FF8C
+; EIP=00401032  EFL=00000216  CF=0  SF=0  ZF=0  OF=0  AF=1  PF=1
+
+;Press any key to continue . . .
